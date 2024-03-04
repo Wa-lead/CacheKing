@@ -11,17 +11,15 @@ The core idea behind CacheKing is to analyze the execution patterns of your code
 
 As an analysis tool, CacheKing is integrated into your Python projects for the purpose of performance evaluation. Ensure Python 3.6 or later is installed for compatibility.
 
-bashCopy code
-
 ```
+pip install git+https://github.com/wa-lead/CacheKing.git
 ```
-`# Clone the repository to include CacheKing in your analysis environment git clone https://github.com/yourusername/CacheKing.git cd CacheKing`
 
 ## Usage
 
 To utilize CacheKing for analysis, wrap the sections of code where you suspect caching could bring performance improvements. Here's an example showing how to analyze potential caching benefits in a pathfinding scenario:
 
-```
+```python
 from CacheKing import CacheKing
 
 [DEFINE YOUR PROGRAM HERE]
@@ -45,12 +43,8 @@ from functools import lru_cache
 from itertools import combinations
 from CacheKing import CacheKing
 
-  
-  
-
 def calculate_distance(point_a, point_b):
 	return np.sqrt((point_b[0] - point_a[0])**2 + (point_b[1] - point_a[1])**2)
-
 
 def shortest_path(point_a, point_b, obstacles_hash):
 	# Convert hash back to obstacles list
@@ -62,11 +56,7 @@ def shortest_path(point_a, point_b, obstacles_hash):
 		
 	return path_distance
 
-  
-  
-
 with CacheKing():
-
 	data = {
 	'location_id': range(1, 101), # 100 locations
 	'x_coord': np.random.rand(100) * 100,
@@ -80,26 +70,17 @@ with CacheKing():
 	pairs = combinations(locations_df['location_id'], 2)
 	results = []
 	
-	  
-
 	for pair in pairs:
-	
 		loc_a = locations_df.loc[locations_df['location_id'] == pair[0], ['x_coord', 'y_coord']].iloc[0]
-		
 		loc_b = locations_df.loc[locations_df['location_id'] == pair[1], ['x_coord', 'y_coord']].iloc[0]
-		
 		distance = shortest_path(tuple(loc_a), tuple(loc_b), obstacles)
-		
 		results.append({'pair': pair, 'distance': distance})
-	
+
 	results_df = pd.DataFrame(results)
-	
-	  
-	
 	print(results_df.head())
 ```
 
-##### Output:
+##### `CacheKing` Anslysis Output:
 
 ```
 +--------------------+-------+------------+--------------+----------------------+----------------+
